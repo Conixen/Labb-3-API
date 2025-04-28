@@ -2,11 +2,11 @@
 {
     public class Links
     {
-        public string Links { get; set; }
-        public Links(string Links)
+        public string Link { get; set; }
+        public Links(string links)
         {
 
-            Links = links;
+            Link = links;
         }
         public Links()
         {
