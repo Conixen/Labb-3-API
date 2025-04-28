@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Labb_3___API.DataContext;
+using Labb_3___API.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Labb_3___API.Controllers
 {
@@ -7,22 +10,30 @@ namespace Labb_3___API.Controllers
     [ApiController]
     public class PeopleController : ControllerBase
     {
-        private readonly PeopleDBContext _context;
-        public PeopleController(PeopleDBContext context)
+        private readonly PersonDbContext _context;
+
+        public PeopleController(PersonDbContext context)
         {
             _context = context;
         }
-        [HttpGet()]
 
-        public async Task<ActionResult<IEnumerable<Person>>> GetAll()
+        // GET: api/People
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Person>>> GetAllPersonas()
         {
-            var people = await _context.Persons.ToListAsync();
-            if (people == null || people.Count == 0)
-            {
-                return NotFound();
-            }
-            return Ok(people);
+            return await _context.Persons.ToListAsync();
+
         }
-        HttpPost()]
+        [HttpGet("{id}/interests")]
+        public async Task<ActionResult<IEnumerable<Interest>>> GetInterests(int id)
+        {
+            var intrests = await _context.PersonInterests
+                .Where(pi => pi.PersonId == id)
+                .Select(pi => pi.Interest)
+                .ToListAsync();
+
+            return intrests;
+        }
+
     }
 }
