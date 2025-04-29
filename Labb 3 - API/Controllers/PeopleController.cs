@@ -24,23 +24,23 @@ namespace Labb_3___API.Controllers
             return await _context.Persons.ToListAsync();
 
         }
-        // Get all Interests of 1 person
+        // GET all Interests of 1 person
         [HttpGet("{id}/interests")]
         public async Task<ActionResult<IEnumerable<Interest>>> GetPersonasInterests(int id)
         {
-            var intrests = await _context.PersonInterests
+            var getIntrests = await _context.PersonInterests
                 .Where(pi => pi.PersonId == id)
                 .Select(pi => pi.Interest)
                 .ToListAsync();
 
-            return intrests;
+            return getIntrests;
         }
-        // Get all Links of 1 person
+        // GET all Links of 1 person
         [HttpGet("{id}/links")]
         public async Task<ActionResult<IEnumerable<Link>>> GetPersonasLinks(int id)
         {
             var getLinks = await _context.Links
-                .Where(gL => gL.PersonId == id)
+                .Where(l => l.PersonId == id)
                 .ToListAsync();
             if (getLinks == null || getLinks.Count == 0)
             {
@@ -48,6 +48,26 @@ namespace Labb_3___API.Controllers
             }
             return getLinks;
         }
-        // Post a new intrest to a person
+        // POST a new intrest to a person
+        [HttpPost("{personId}/interests/{intrestId}")]
+        public async Task<IActionResult> NewActivity2Persona(int personId, int intrestId)
+        {
+            var postPersonas = await _context.Persons.FindAsync(personId);
+            var postIntrest = await _context.Interests.FindAsync(intrestId);
+
+            if (postPersonas == null || postIntrest == null)
+            {
+                return NotFound("Person or Interest not found.");
+            }
+            var newMtmInterest = new MtmInterest
+            {
+                PersonId = personId,
+                InterestId = intrestId
+            };
+            _context.PersonInterests.Add(newMtmInterest);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
     }
 }
