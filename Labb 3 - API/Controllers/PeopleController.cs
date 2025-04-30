@@ -17,10 +17,11 @@ namespace Labb_3___API.Controllers
         //    _context = context;
         //}
         private readonly LaPerosnaService _laPersonaService;
-
-        public PeopleController(LaPerosnaService laPersonaService)
+        private readonly LinkService _linkService;
+        public PeopleController(LaPerosnaService laPersonaService, LinkService linkService)
         {
             _laPersonaService = laPersonaService;
+            _linkService = linkService;
         }
 
         // GET all people
@@ -60,6 +61,17 @@ namespace Labb_3___API.Controllers
             if (!result)
                 return NotFound("Person or Interest not found.");
 
+            return NoContent();
+        }
+
+        // POST a new link to a person
+        [HttpPost("{personId}/intrests/{interestId}/links")]
+        public async Task<IActionResult> AddNewLinkPersonaIntrest(int personId, int interestId, [FromBody] string url)
+        {
+            var result = await _linkService.NewLinkAsync(personId, interestId, url);
+
+            if (!result)
+                return NotFound("Person or Interest not found.");
             return NoContent();
         }
     }
