@@ -1,4 +1,6 @@
 
+using Labb_3___API.Services;
+
 namespace Labb_3___API
 {
     public class Program
@@ -11,6 +13,8 @@ namespace Labb_3___API
             // Add services to the container.
 
             builder.Services.AddControllers();
+            builder.Services.AddScoped<LaPerosnaService>();
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();

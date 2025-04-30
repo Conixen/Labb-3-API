@@ -1,5 +1,6 @@
 ﻿using Labb_3___API.DataContext;
 using Labb_3___API.Models;
+using Labb_3___API.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,62 +11,54 @@ namespace Labb_3___API.Controllers
     [ApiController]
     public class PeopleController : ControllerBase
     {
-        private readonly PersonDbContext _context;
+        //private readonly PersonDbContext _context;
+        //public PeopleController(PersonDbContext context)      // Moved to LaPerosnaService
+        //{
+        //    _context = context;
+        //}
+        private readonly LaPerosnaService _laPersonaService;
 
-        public PeopleController(PersonDbContext context)
+        public PeopleController(LaPerosnaService laPersonaService)
         {
-            _context = context;
+            _laPersonaService = laPersonaService;
         }
 
         // GET all people
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Person>>> GetAllPersonas()
         {
-            return await _context.Persons.ToListAsync();
+            var persons = await _laPersonaService.GetAllPersonasAsync();
+            return Ok(persons);
 
         }
+
         // GET all Interests of 1 person
         [HttpGet("{id}/interests")]
-        public async Task<ActionResult<IEnumerable<Interest>>> GetPersonasInterests(int id)
+        public async Task<ActionResult<IEnumerable<Interest>>> GetPersonInterests(int id)
         {
-            var getIntrests = await _context.PersonInterests
-                .Where(pi => pi.PersonId == id)
-                .Select(pi => pi.Interest)
-                .ToListAsync();
-
-            return getIntrests;
+            return await _laPersonaService.GetPersonInterestsAsync(id);
         }
+
         // GET all Links of 1 person
         [HttpGet("{id}/links")]
-        public async Task<ActionResult<IEnumerable<Link>>> GetPersonasLinks(int id)
+        public async Task<ActionResult<IEnumerable<Link>>> GetPersonLinks(int id)
         {
-            var getLinks = await _context.Links
-                .Where(l => l.PersonId == id)
-                .ToListAsync();
-            if (getLinks == null || getLinks.Count == 0)
-            {
+            var links = await _laPersonaService.GetPersonLinksAsync(id);
+            
+            if (links == null || links.Count == 0)
                 return NotFound("No links found for this person.");
-            }
-            return getLinks;
-        }
-        // POST a new intrest to a person
-        [HttpPost("{personId}/interests/{intrestId}")]
-        public async Task<IActionResult> NewActivity2Persona(int personId, int intrestId)
-        {
-            var postPersonas = await _context.Persons.FindAsync(personId);
-            var postIntrest = await _context.Interests.FindAsync(intrestId);
 
-            if (postPersonas == null || postIntrest == null)
-            {
+            return Ok(links);
+        }
+
+        // POST a new intrest to a person
+        [HttpPost("{personId}/interests/{interestId}")]
+        public async Task<IActionResult> AddInterestToPerson(int personId, int interestId)
+        {
+            var result = await _laPersonaService.AddInterestToPersonAsync(personId, interestId);
+            
+            if (!result)
                 return NotFound("Person or Interest not found.");
-            }
-            var newMtmInterest = new MtmInterest
-            {
-                PersonId = personId,
-                InterestId = intrestId
-            };
-            _context.PersonInterests.Add(newMtmInterest);
-            await _context.SaveChangesAsync();
 
             return NoContent();
         }
