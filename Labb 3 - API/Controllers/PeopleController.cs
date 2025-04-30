@@ -13,7 +13,7 @@ namespace Labb_3___API.Controllers
     {
         //private readonly PersonDbContext _context;
         //public PeopleController(PersonDbContext context)      // Moved to LaPerosnaService
-        //{
+        //{                                                     // And LinkService for better separation (srp)
         //    _context = context;
         //}
         private readonly LaPerosnaService _laPersonaService;

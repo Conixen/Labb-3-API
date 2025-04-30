@@ -1,4 +1,5 @@
 
+using Labb_3___API.DataContext;
 using Labb_3___API.Services;
 
 namespace Labb_3___API
@@ -14,6 +15,9 @@ namespace Labb_3___API
 
             builder.Services.AddControllers();
             builder.Services.AddScoped<LaPerosnaService>();
+            builder.Services.AddScoped<LinkService>();
+            builder.Services.AddDbContext<PersonDbContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -31,7 +35,6 @@ namespace Labb_3___API
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 
