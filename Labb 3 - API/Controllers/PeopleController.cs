@@ -67,14 +67,20 @@ namespace Labb_3___API.Controllers
 
         // POST a new link to a person
         [HttpPost("{personId}/interests/{interestId}/links")]
-        public async Task<IActionResult> AddNewLinkPersonaIntrest(int personId, int interestId, [FromBody] string url)
+        public async Task<IActionResult> AddNewLinkPersonaIntrest(int personId, int interestId, [FromQuery] string url)
         {
+            if (string.IsNullOrEmpty(url))
+            {
+                return BadRequest("URL is required, u silly bitch");
+            }
             var result = await _linkService.NewLinkAsync(personId, interestId, url);
 
             if (!result)
-                return NotFound("Person or Interest combination not found.");
+            {
+                return BadRequest("Hey Link Listen");
+            }
 
-            return NoContent();
+            return Ok();
         }
     }
 }

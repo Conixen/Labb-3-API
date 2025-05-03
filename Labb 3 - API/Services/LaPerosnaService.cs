@@ -14,7 +14,7 @@ namespace Labb_3___API.Services
         }
 
         // GET all people
-        public async Task<ActionResult<IEnumerable<Person>>> GetAllPersonasAsync()
+        public async Task<List<Person>> GetAllPersonasAsync()
         {
             return await _context.Persons.ToListAsync();
         }

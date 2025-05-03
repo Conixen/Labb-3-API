@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Labb_3___API.Migrations
 {
     [DbContext(typeof(PersonDbContext))]
-    [Migration("20250503155957_Seeddata")]
-    partial class Seeddata
+    [Migration("20250503211240_SeedDataV2")]
+    partial class SeedDataV2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,7 +36,7 @@ namespace Labb_3___API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("IntrestName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -49,73 +49,73 @@ namespace Labb_3___API.Migrations
                         {
                             Id = 1,
                             Description = "Spela och titta på fotboll",
-                            Name = "Fotboll"
+                            IntrestName = "Fotboll"
                         },
                         new
                         {
                             Id = 2,
                             Description = "Spela gitarr och lyssna på musik",
-                            Name = "Musik"
+                            IntrestName = "Musik"
                         },
                         new
                         {
                             Id = 3,
                             Description = "Utveckla applikationer och hemsidor",
-                            Name = "Programmering"
+                            IntrestName = "Programmering"
                         },
                         new
                         {
                             Id = 4,
                             Description = "Besöka nya länder och kulturer",
-                            Name = "Resa"
+                            IntrestName = "Resa"
                         },
                         new
                         {
                             Id = 5,
                             Description = "Laga och njuta av god mat",
-                            Name = "Matlagning"
+                            IntrestName = "Matlagning"
                         },
                         new
                         {
                             Id = 6,
                             Description = "Ta bilder och redigera dem",
-                            Name = "Fotografi"
+                            IntrestName = "Fotografi"
                         },
                         new
                         {
                             Id = 7,
                             Description = "Hålla sig i form och träna",
-                            Name = "Träning"
+                            IntrestName = "Träning"
                         },
                         new
                         {
                             Id = 8,
                             Description = "Läsa böcker och skriva",
-                            Name = "Litteratur"
+                            IntrestName = "Litteratur"
                         },
                         new
                         {
                             Id = 9,
                             Description = "Titta på filmer och serier",
-                            Name = "Film"
+                            IntrestName = "Film"
                         },
                         new
                         {
                             Id = 10,
                             Description = "Spela datorspel och brädspel",
-                            Name = "Spel"
+                            IntrestName = "Spel"
                         },
                         new
                         {
                             Id = 11,
                             Description = "Skapa och uppskatta konstverk",
-                            Name = "Konst"
+                            IntrestName = "Konst"
                         },
                         new
                         {
                             Id = 12,
                             Description = "Vandra och njuta av naturen",
-                            Name = "Natur"
+                            IntrestName = "Natur"
                         });
                 });
 
@@ -127,10 +127,7 @@ namespace Labb_3___API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("InterestId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PersonId")
+                    b.Property<int>("MtmInterestId")
                         .HasColumnType("int");
 
                     b.Property<string>("Url")
@@ -139,9 +136,7 @@ namespace Labb_3___API.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("InterestId");
-
-                    b.HasIndex("PersonId");
+                    b.HasIndex("MtmInterestId");
 
                     b.ToTable("Links");
 
@@ -149,211 +144,219 @@ namespace Labb_3___API.Migrations
                         new
                         {
                             Id = 1,
-                            InterestId = 1,
-                            PersonId = 1,
+                            MtmInterestId = 1,
                             Url = "https://www.fotbollskanalen.se/"
                         },
                         new
                         {
                             Id = 2,
-                            InterestId = 2,
-                            PersonId = 1,
+                            MtmInterestId = 2,
                             Url = "https://open.spotify.com/"
                         },
                         new
                         {
                             Id = 3,
-                            InterestId = 3,
-                            PersonId = 2,
+                            MtmInterestId = 3,
                             Url = "https://csharpskolan.se/borja-har/"
                         },
                         new
                         {
                             Id = 4,
-                            InterestId = 4,
-                            PersonId = 2,
+                            MtmInterestId = 4,
                             Url = "https://www.trivago.se/"
                         },
                         new
                         {
                             Id = 5,
-                            InterestId = 5,
-                            PersonId = 3,
+                            MtmInterestId = 5,
                             Url = "https://www.kitchenlab.se/k/matlagning/"
                         },
                         new
                         {
                             Id = 6,
-                            InterestId = 6,
-                            PersonId = 3,
+                            MtmInterestId = 6,
                             Url = "https://www.gotaplatsensfoto.se/"
                         },
                         new
                         {
                             Id = 7,
-                            InterestId = 2,
-                            PersonId = 4,
+                            MtmInterestId = 7,
                             Url = "https://tidal.com/"
                         },
                         new
                         {
                             Id = 8,
-                            InterestId = 7,
-                            PersonId = 4,
+                            MtmInterestId = 8,
                             Url = "https://www.actic.se/"
                         },
                         new
                         {
                             Id = 9,
-                            InterestId = 8,
-                            PersonId = 5,
+                            MtmInterestId = 9,
                             Url = "https://litteraturbanken.se/"
                         },
                         new
                         {
                             Id = 10,
-                            InterestId = 9,
-                            PersonId = 5,
+                            MtmInterestId = 10,
                             Url = "https://www.netflix.com/se/"
                         },
                         new
                         {
                             Id = 11,
-                            InterestId = 10,
-                            PersonId = 6,
+                            MtmInterestId = 11,
                             Url = "https://store.steampowered.com/"
                         },
                         new
                         {
                             Id = 12,
-                            InterestId = 11,
-                            PersonId = 6,
+                            MtmInterestId = 12,
                             Url = "https://konst.se"
                         },
                         new
                         {
                             Id = 13,
-                            InterestId = 12,
-                            PersonId = 7,
+                            MtmInterestId = 13,
                             Url = "https://www.sverigesnatur.org/"
                         },
                         new
                         {
                             Id = 14,
-                            InterestId = 1,
-                            PersonId = 7,
+                            MtmInterestId = 14,
                             Url = "https://allsvenskan.se/"
                         },
                         new
                         {
                             Id = 15,
-                            InterestId = 3,
-                            PersonId = 8,
+                            MtmInterestId = 15,
                             Url = "https://www.javascript.com/"
                         },
                         new
                         {
                             Id = 16,
-                            InterestId = 5,
-                            PersonId = 8,
+                            MtmInterestId = 16,
                             Url = "https://www.gordonramsay.com/"
                         });
                 });
 
             modelBuilder.Entity("Labb_3___API.Models.MtmInterest", b =>
                 {
-                    b.Property<int>("PersonId")
+                    b.Property<int>("MtmInterestId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MtmInterestId"));
 
                     b.Property<int>("InterestId")
                         .HasColumnType("int");
 
-                    b.HasKey("PersonId", "InterestId");
+                    b.Property<int>("PersonId")
+                        .HasColumnType("int");
+
+                    b.HasKey("MtmInterestId");
 
                     b.HasIndex("InterestId");
+
+                    b.HasIndex("PersonId");
 
                     b.ToTable("PersonInterests");
 
                     b.HasData(
                         new
                         {
-                            PersonId = 1,
-                            InterestId = 1
+                            MtmInterestId = 1,
+                            InterestId = 1,
+                            PersonId = 1
                         },
                         new
                         {
-                            PersonId = 1,
-                            InterestId = 2
+                            MtmInterestId = 2,
+                            InterestId = 2,
+                            PersonId = 1
                         },
                         new
                         {
-                            PersonId = 2,
-                            InterestId = 3
+                            MtmInterestId = 3,
+                            InterestId = 3,
+                            PersonId = 2
                         },
                         new
                         {
-                            PersonId = 2,
-                            InterestId = 4
+                            MtmInterestId = 4,
+                            InterestId = 4,
+                            PersonId = 2
                         },
                         new
                         {
-                            PersonId = 3,
-                            InterestId = 5
+                            MtmInterestId = 5,
+                            InterestId = 5,
+                            PersonId = 3
                         },
                         new
                         {
-                            PersonId = 3,
-                            InterestId = 6
+                            MtmInterestId = 6,
+                            InterestId = 6,
+                            PersonId = 3
                         },
                         new
                         {
-                            PersonId = 4,
-                            InterestId = 2
+                            MtmInterestId = 7,
+                            InterestId = 2,
+                            PersonId = 4
                         },
                         new
                         {
-                            PersonId = 4,
-                            InterestId = 7
+                            MtmInterestId = 8,
+                            InterestId = 7,
+                            PersonId = 4
                         },
                         new
                         {
-                            PersonId = 5,
-                            InterestId = 8
+                            MtmInterestId = 9,
+                            InterestId = 8,
+                            PersonId = 5
                         },
                         new
                         {
-                            PersonId = 5,
-                            InterestId = 9
+                            MtmInterestId = 10,
+                            InterestId = 9,
+                            PersonId = 5
                         },
                         new
                         {
-                            PersonId = 6,
-                            InterestId = 10
+                            MtmInterestId = 11,
+                            InterestId = 10,
+                            PersonId = 6
                         },
                         new
                         {
-                            PersonId = 6,
-                            InterestId = 11
+                            MtmInterestId = 12,
+                            InterestId = 11,
+                            PersonId = 6
                         },
                         new
                         {
-                            PersonId = 7,
-                            InterestId = 12
+                            MtmInterestId = 13,
+                            InterestId = 12,
+                            PersonId = 7
                         },
                         new
                         {
-                            PersonId = 7,
-                            InterestId = 1
+                            MtmInterestId = 14,
+                            InterestId = 1,
+                            PersonId = 7
                         },
                         new
                         {
-                            PersonId = 8,
-                            InterestId = 3
+                            MtmInterestId = 15,
+                            InterestId = 3,
+                            PersonId = 8
                         },
                         new
                         {
-                            PersonId = 8,
-                            InterestId = 5
+                            MtmInterestId = 16,
+                            InterestId = 5,
+                            PersonId = 8
                         });
                 });
 
@@ -365,7 +368,11 @@ namespace Labb_3___API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Name")
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -381,82 +388,82 @@ namespace Labb_3___API.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Anna Andersson",
+                            FirstName = "Anna",
+                            LastName = "Andersson",
                             Phone = "0701234567"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Bertil Berg",
+                            FirstName = "Bertil",
+                            LastName = "Berg",
                             Phone = "0739876543"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Cecilia Carlsson",
+                            FirstName = "Cecilia",
+                            LastName = "Carlsson",
                             Phone = "0761122334"
                         },
                         new
                         {
                             Id = 4,
-                            Name = "David Dahl",
+                            FirstName = "David",
+                            LastName = "Dahl",
                             Phone = "0709876543"
                         },
                         new
                         {
                             Id = 5,
-                            Name = "Eva Eriksson",
+                            FirstName = "Eva",
+                            LastName = "Eriksson",
                             Phone = "0734567890"
                         },
                         new
                         {
                             Id = 6,
-                            Name = "Fredrik Frisk",
+                            FirstName = "Fredrik",
+                            LastName = "Frisk",
                             Phone = "0765432109"
                         },
                         new
                         {
                             Id = 7,
-                            Name = "Gina Gustavsson",
+                            FirstName = "Gina",
+                            LastName = "Gustavsson",
                             Phone = "0701234567"
                         },
                         new
                         {
                             Id = 8,
-                            Name = "Henrik Hansson",
+                            FirstName = "Henrik",
+                            LastName = "Hansson",
                             Phone = "0739876543"
                         });
                 });
 
             modelBuilder.Entity("Labb_3___API.Models.Link", b =>
                 {
-                    b.HasOne("Labb_3___API.Models.Interest", "Interest")
+                    b.HasOne("Labb_3___API.Models.MtmInterest", "MtmInterest")
                         .WithMany("Links")
-                        .HasForeignKey("InterestId")
+                        .HasForeignKey("MtmInterestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Labb_3___API.Models.Person", "Person")
-                        .WithMany("Links")
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Interest");
-
-                    b.Navigation("Person");
+                    b.Navigation("MtmInterest");
                 });
 
             modelBuilder.Entity("Labb_3___API.Models.MtmInterest", b =>
                 {
                     b.HasOne("Labb_3___API.Models.Interest", "Interest")
-                        .WithMany("PersonInterests")
+                        .WithMany("MtmInterest")
                         .HasForeignKey("InterestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Labb_3___API.Models.Person", "Person")
-                        .WithMany("PersonInterests")
+                        .WithMany("MtmInterest")
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -468,16 +475,17 @@ namespace Labb_3___API.Migrations
 
             modelBuilder.Entity("Labb_3___API.Models.Interest", b =>
                 {
-                    b.Navigation("Links");
+                    b.Navigation("MtmInterest");
+                });
 
-                    b.Navigation("PersonInterests");
+            modelBuilder.Entity("Labb_3___API.Models.MtmInterest", b =>
+                {
+                    b.Navigation("Links");
                 });
 
             modelBuilder.Entity("Labb_3___API.Models.Person", b =>
                 {
-                    b.Navigation("Links");
-
-                    b.Navigation("PersonInterests");
+                    b.Navigation("MtmInterest");
                 });
 #pragma warning restore 612, 618
         }
