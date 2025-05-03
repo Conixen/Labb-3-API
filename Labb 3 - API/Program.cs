@@ -1,6 +1,7 @@
 
 using Labb_3___API.DataContext;
 using Labb_3___API.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace Labb_3___API
 {

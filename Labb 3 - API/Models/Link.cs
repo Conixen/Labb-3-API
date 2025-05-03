@@ -1,15 +1,16 @@
-﻿namespace Labb_3___API.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Labb_3___API.Models
 {
     public class Link
     {
+        [Key]
         public int Id { get; set; }
         public string Url { get; set; }
 
-        public int PersonId { get; set; }
-        public Person Person { get; set; }
 
-        public int InterestId { get; set; }
-        public Interest Interest { get; set; }
+        public int MtmInterestId { get; set; }
+        public MtmInterest MtmInterest { get; set; }
 
     }
 }

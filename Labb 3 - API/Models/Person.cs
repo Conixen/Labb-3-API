@@ -1,13 +1,20 @@
-﻿namespace Labb_3___API.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Labb_3___API.Models
 {
     public class Person
     {
+        [Key]
         public int Id { get; set; }
-        public string Name { get; set; }
+        [Required]
+        public string FirstName { get; set; }
+        [Required]
+        public string LastName { get; set; }
+
         public string Phone { get; set; }
-        public ICollection<Link> Links { get; set; }
-        public ICollection<MtmInterest> PersonInterests { get; set; }
+        public ICollection<MtmInterest> MtmInterest { get; set; }
 
 
+        // public ICollection<Link> Links { get; set; }
     }
 }
