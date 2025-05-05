@@ -71,13 +71,13 @@ namespace Labb_3___API.Controllers
         {
             if (string.IsNullOrEmpty(url))
             {
-                return BadRequest("URL is required, u silly bitch");
+                return BadRequest("URL is required (Example: 'https://www.youtube.com')");
             }
             var result = await _linkService.NewLinkAsync(personId, interestId, url);
 
             if (!result)
             {
-                return BadRequest("Hey Link Listen");
+                return BadRequest("Hey Link Listen (Example: 'https://www.youtube.com') ");
             }
 
             return Ok();
