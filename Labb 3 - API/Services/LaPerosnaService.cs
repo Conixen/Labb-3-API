@@ -40,24 +40,33 @@ namespace Labb_3___API.Services
         }
 
         // POST a new interest to a person
-        public async Task<bool> AddInterestToPersonAsync(int personId, int interestId)
+        public async Task<string?> AddInterestToPersonAsync(int personId, int interestId)
         {
             var person = await _context.Persons.FindAsync(personId);
+            if (person == null)
+                return "Person not found.";
+
             var interest = await _context.Interests.FindAsync(interestId);
+            if (interest == null)
+                return "Interest not found.";
 
-            if (person == null || interest == null)
-                return false;
+            var existingConnection = await _context.PersonInterests
+                .FirstOrDefaultAsync(pi => pi.PersonId == personId && pi.InterestId == interestId);
 
-            var exists = await _context.PersonInterests
-                .AnyAsync(pi => pi.PersonId == personId && pi.InterestId == interestId);
+            if (existingConnection != null)
+                return "Person is already connected to this interest.";
 
-            if (exists)
-                return false;
+            var newConnection = new MtmInterest
+            {
+                PersonId = personId,
+                InterestId = interestId
+            };
 
-            var mtmInterest = new MtmInterest { PersonId = personId, InterestId = interestId };
-            _context.PersonInterests.Add(mtmInterest);
+            _context.PersonInterests.Add(newConnection);
             await _context.SaveChangesAsync();
-            return true;
+
+            return null; // Success!
         }
+
     }
 }

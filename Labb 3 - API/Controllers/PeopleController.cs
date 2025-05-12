@@ -57,12 +57,12 @@ namespace Labb_3___API.Controllers
         [HttpPost("{personId}/interests/{interestId}")]
         public async Task<IActionResult> AddInterestToPerson(int personId, int interestId)
         {
-            var result = await _laPersonaService.AddInterestToPersonAsync(personId, interestId);
+            var error = await _laPersonaService.AddInterestToPersonAsync(personId, interestId);
 
-            if (!result)
-                return NotFound("Person or Interest not found or already connected.");
+            if (error != null)
+                return NotFound(error); // Eller BadRequest beroende på vad du föredrar
 
-            return NoContent();
+            return NoContent(); // 204
         }
 
         // POST a new link to a person
